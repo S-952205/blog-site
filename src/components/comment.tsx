@@ -2,11 +2,17 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 
+
+interface Comment {
+  name: string;
+  text: string;
+}
+
 // Step 1: Creating a functional component for the comment section
 const CommentSection = () => {
 
   // Step 2: Defining state to store user input (name and comment)
-  const [comments, setComments] = useState<any[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [isEditing, setIsEditing] = useState<number | null>(null); // To track which comment is being edited
@@ -23,7 +29,7 @@ const CommentSection = () => {
     // Step 4: Add new comment to state
     const newComment = {
       name: name,
-      comment: comment,
+      text: comment,
     };
     setComments([...comments, newComment]);
 
@@ -41,7 +47,7 @@ const CommentSection = () => {
   // Save Edited Comment
   const handleSaveEdit = (index: number) => {
     const updatedComments = [...comments];
-    updatedComments[index].comment = editedComment; // Update the comment text
+    updatedComments[index].text = editedComment; // Update the comment text
     setComments(updatedComments);
     setIsEditing(null); // Exit editing mode
     setEditedComment("");
@@ -123,10 +129,10 @@ const CommentSection = () => {
                     <strong className="text-[15px] capitalize text-blue-500">
                       {item.name}:
                     </strong>{" "}
-                    {item.comment}
+                    {item.text}
                   </span>
                   <Button
-                    onClick={() => handleEditClick(index, item.comment)}
+                    onClick={() => handleEditClick(index, item.text)}
                     className="text-[12px] px-[10px] py-[5px]"
                   >
                     Edit
